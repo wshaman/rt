@@ -13,12 +13,12 @@ use yii\rbac\Rule;
 
 class Resolver extends Rule
 {
-    public $name = 'userGroup';
+    public $name = 'Resolver';
 
     public function execute($user, $item, $params)
     {
         if (!\Yii::$app->user->isGuest) {
-            $group = \Yii::$app->user->identity->group;
+            $group = \Yii::$app->user->identity->role_name;
             if ($group === 'admin') return true;
             if ($item->name === 'admin') {
                 return $group == 'admin';

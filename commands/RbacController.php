@@ -69,11 +69,11 @@ class RbacController extends Controller
         $am->addChild($reader, $profile);
 
         //Менежеры,
-        $mea = new ManagerEditAuthored();
-        $am->add($mea);
-        $edit_authored = $am->createPermission('allow-edit-authored');
-        $edit_authored->ruleName = $mea->name;
-        $am->add($mea);
-        $am->addChild($manager, $edit_authored);
+//        $mea = new ManagerEditAuthored();
+//        $am->add($mea);
+//        $edit_authored = $am->createPermission('isAuthored');
+//        $edit_authored->ruleName = $mea->name;
+//        $am->add($mea);
+//        $am->addChild($manager, $edit_authored);
     }
 }

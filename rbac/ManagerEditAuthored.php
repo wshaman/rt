@@ -23,7 +23,7 @@ class ManagerEditAuthored extends Rule
      */
     public function execute($user, $item, $params)
     {
-        if (\Yii::$app->user->identity->group == 'admin') {
+        if (\Yii::$app->user->identity->role_name == 'admin') {
             return true;
         }
         return isset($params['author_id']) ? \Yii::$app->user->id == $params['author_id'] : false;

@@ -22,8 +22,6 @@ return [
         'type' => 1,
         'children' => [
             'logout',
-            'delete',
-            'update',
             'view',
         ],
     ],
@@ -49,9 +47,6 @@ return [
         'type' => 2,
     ],
     'update' => [
-        'type' => 2,
-    ],
-    'delete' => [
         'type' => 2,
     ],
     'profile' => [
