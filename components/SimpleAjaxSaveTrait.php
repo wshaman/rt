@@ -8,6 +8,7 @@
 
 namespace app\components;
 
+use Yii;
 
 trait SimpleAjaxSaveTrait
 {
@@ -23,5 +24,27 @@ trait SimpleAjaxSaveTrait
             return true;
         }
         return false;
+    }
+
+    /**
+     * Updates an existing News model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionUpdate($id)
+    {
+        $model = $this->findModel($id);
+        if ($this->_checkSaveSimple($model, Yii::$app->request->post())){
+            return json_encode(['message' => 'OK']);
+        }
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
+
+        return $this->renderAjax('update', [
+            'model' => $model,
+        ]);
     }
 }

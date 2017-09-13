@@ -8,6 +8,7 @@ use app\models\News;
 use app\models\search\News as NewsSearch;
 use yii\filters\AccessControl;
 use yii\web\Controller;
+use yii\web\HttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -29,17 +30,25 @@ class NewsController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'actions' => ['index', 'view', 'update', 'delete', 'create'],
-                        'roles' => ['admin', 'manager'],
-                    ],
-                ]
-            ]
+//            'access' => [
+//                'class' => AccessControl::className(),
+//                'rules' => [
+//                    [
+//                        'allow' => true,
+//                        'actions' => ['index', 'view', 'update', 'delete', 'create'],
+//                        'roles' => ['admin', 'manager'],
+//                    ],
+//                ]
+//            ]
         ];
+    }
+
+    public function beforeAction($action)
+    {
+        if(!Yii::$app->user->can('admin')){
+            throw new HttpException(403);
+        }
+        return parent::beforeAction($action);
     }
 
     /**
@@ -83,28 +92,6 @@ class NewsController extends Controller
         }
 
         return $this->renderAjax('create', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Updates an existing News model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
-        if ($this->_checkSaveSimple($model, Yii::$app->request->post())){
-            return json_encode(['message' => 'OK']);
-        }
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-
-        return $this->renderAjax('update', [
             'model' => $model,
         ]);
     }

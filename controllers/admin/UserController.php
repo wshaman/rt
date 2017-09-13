@@ -2,6 +2,7 @@
 
 namespace app\controllers\admin;
 
+use app\components\SimpleAjaxSaveTrait;
 use Yii;
 use app\models\User;
 use app\models\search\User as UserSearch;
@@ -15,6 +16,7 @@ use yii\filters\VerbFilter;
  */
 class UserController extends Controller
 {
+    use SimpleAjaxSaveTrait;
     /**
      * @inheritdoc
      */
@@ -27,16 +29,16 @@ class UserController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'actions' => ['*'],
-                        'roles' => ['admin', 'manager'],
-                    ],
-                ]
-            ]
+//            'access' => [
+//                'class' => AccessControl::className(),
+//                'rules' => [
+//                    [
+//                        'allow' => true,
+//                        'actions' => ['*'],
+//                        'roles' => ['admin', 'manager'],
+//                    ],
+//                ]
+//            ]
         ];
     }
 
@@ -85,24 +87,6 @@ class UserController extends Controller
         ]);
     }
 
-    /**
-     * Updates an existing User model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
-    }
 
     /**
      * Deletes an existing User model.
