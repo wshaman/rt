@@ -17,6 +17,11 @@ class User extends \nkostadinov\user\models\User
         if($this->skip_before_save) return true;
         return parent::beforeSave($insert);
     }
+
+    public function name()
+    {
+        return ($this->username) ? $this->username : $this->email;
+    }
 //    public static function isGuest()
 //    {
 //        return false;

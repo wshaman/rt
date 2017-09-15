@@ -7,7 +7,7 @@ use Yii;
 use \yii\db\Expression;
 
 /**
- * This is the model class for table "news".
+ * This is the model class for table "site".
  *
  * @property int $id
  * @property string $title
@@ -17,6 +17,7 @@ use \yii\db\Expression;
  * @property int $status
  * @property string $created
  * @property string $updated
+ * @property User $author
  */
 class News extends \yii\db\ActiveRecord
 {
@@ -80,5 +81,10 @@ class News extends \yii\db\ActiveRecord
             $this->updated = new Expression('NOW()');
         }
         return parent::beforeSave($insert);
+    }
+
+    public function getAuthor()
+    {
+        return $this->hasOne(User::className(), ['id' => 'author_id']);
     }
 }

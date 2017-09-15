@@ -12,7 +12,7 @@ class m170911_091432_news extends Migration
      */
     public function safeUp()
     {
-        $this->createTable('{{%news}}', [
+        $this->createTable('{{%site}}', [
             'id' => $this->primaryKey(),
             'title' => $this->string(60)->notNull(),
             'slug' => $this->string(60),
@@ -23,7 +23,7 @@ class m170911_091432_news extends Migration
             'updated' => $this->timestamp(),
             'author_id' => $this->integer()
         ]);
-        $this->addForeignKey('news_author__user_fk1', 'news', 'author_id', 'user', 'id');
+        $this->addForeignKey('news_author__user_fk1', 'site', 'author_id', 'user', 'id');
     }
 
     /**
@@ -31,6 +31,6 @@ class m170911_091432_news extends Migration
      */
     public function safeDown()
     {
-        $this->dropTable('{{%news}}');
+        $this->dropTable('{{%site}}');
     }
 }

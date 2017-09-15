@@ -44,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'type' => 'dropdown',
                 'items' => Dict::status(),
                 'href' => function($model, $key, $index){
-                    return Url::to(['admin/news/update', 'id'=> $key], true);
+                    return Url::to(['admin/site/update', 'id'=> $key], true);
                 },
                 'class' => 'app\components\grid\AutoSaveColumn',
                 'filter' => Dict::status(),
@@ -80,10 +80,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php Pjax::end(); ?>
 </div>
 
-<!--<input type="hidden" id="url__news_form" value="--><?php //echo Url::to(['admin/news/update', 'id'=>'__id__']);?><!--">-->
+<!--<input type="hidden" id="url__news_form" value="--><?php //echo Url::to(['admin/site/update', 'id'=>'__id__']);?><!--">-->
 
 <div id="updateFormPopup" class="modal fade" role="dialog"
-     data-save_url="<?php echo \yii\helpers\Url::to('/admin/news/save')?>">
+     data-save_url="<?php echo \yii\helpers\Url::to('/admin/site/save')?>">
     <div class="modal-dialog modal-lg">
 
         <!-- Modal content-->
