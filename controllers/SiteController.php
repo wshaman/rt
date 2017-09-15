@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\components\SimpleAjaxSaveTrait;
+use app\models\Profile;
 use Yii;
 use app\models\News;
 use app\models\search\News as NewsSearch;
@@ -35,12 +36,33 @@ class SiteController extends Controller
 //                'rules' => [
 //                    [
 //                        'allow' => true,
-//                        'actions' => ['view'],
+//                        'actions' => ['view', 'profile'],
 //                        'roles' => ['@'],
 //                    ],
 //                ]
 //            ]
         ];
+    }
+
+    public function actionProfile()
+    {
+        if(Yii::$app->user->isGuest) throw new HttpException(403, 'No guest allowed');
+        $model = Profile::findOne(['user_id'=>Yii::$app->user->id]);
+        if(!$model){
+            $model = new Profile();
+            $model->user_id = Yii::$app->user->id;
+            $model->notify_browser = false;
+            $model->notify_email = false;
+            $model->save();
+        }
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['index', 'id' => $model->id]);
+        }
+
+        return $this->render('profile', [
+            'model' => $model,
+        ]);
     }
 
     /**

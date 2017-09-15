@@ -32,7 +32,6 @@ $this->title = Yii::t('app', 'News');
                 },
                 'format' => 'raw'
             ],
-            'title',
             'pre',
             [
                 'attribute' => 'status',
